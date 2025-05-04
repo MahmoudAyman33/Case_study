@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Prediction</title>
+    
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Black Background Theme */
+        body {
+            background: #000000;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(38, 78, 202, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 30%, rgba(255, 44, 131, 0.15) 0%, transparent 40%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #ffffff;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Gradient Lines */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+            background-size: 200% 100%;
+            z-index: -1;
+            animation: gradientMove 8s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Neo-futuristic Container */
+        .container {
+            background: rgba(15, 15, 20, 0.85);
+            border-radius: 20px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.1),
+                inset 0 0 30px rgba(41, 121, 255, 0.1);
+            padding: 30px;
+            width: 800px; /* Increased width from 420px to 800px */
+            position: relative;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-out, glow 4s infinite alternate;
+            overflow: hidden;
+        }
+
+        /* Glow Animation */
+        @keyframes glow {
+            0% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1), inset 0 0 30px rgba(41, 121, 255, 0.1); }
+            100% { box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.15), inset 0 0 30px rgba(41, 121, 255, 0.2); }
+        }
+
+        /* Container Accent Borders */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #3742fa, #1e90ff, #ff2c83, #3742fa);
+            z-index: -1;
+            border-radius: 22px;
+            background-size: 400%;
+            animation: borderGlow 12s linear infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes borderGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Title Styling */
+        h2 {
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 25px;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+            text-shadow: 0 0 10px rgba(41, 121, 255, 0.5);
+        }
+
+        h2::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #ff2c83, #3742fa, transparent);
+            border-radius: 3px;
+        }
+
+        /* Form Styling */
+        form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Two columns layout */
+            gap: 20px;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        label {
+            text-align: left;
+            color: #bdc3c7;
+            font-weight: 400;
+            font-size: 14px;
+            margin-bottom: 6px;
+            display: block;
+            transition: 0.3s;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(30, 30, 45, 0.6);
+            color: #ffffff;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.08);
+            -webkit-appearance: none;
+        }
+
+        /* Select Dropdown Custom Styling */
+        select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23bdc3c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            background: rgba(25, 33, 63, 0.8);
+            box-shadow: 
+                inset 0 2px 5px rgba(0, 0, 0, 0.2), 
+                0 0 0 2px rgba(41, 128, 255, 0.4),
+                0 0 15px rgba(41, 128, 255, 0.2);
+        }
+
+        /* Focus Animation for Input */
+        .input-group:focus-within label {
+            color: #3742fa;
+        }
+
+        /* Button Styling */
+        button {
+            background: linear-gradient(135deg, #3742fa, #1e90ff);
+            border: none;
+            padding: 16px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 12px;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(24, 57, 138, 0.4);
+            grid-column: span 2; /* Make button span both columns */
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(24, 57, 138, 0.6);
+            background: linear-gradient(135deg, #4151ff, #0080ff);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        /* Button Ripple Effect */
+        button::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        button:hover::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+
+        /* Prediction Result Box */
+        .result-box {
+            background: linear-gradient(135deg, rgba(24, 34, 66, 0.8), rgba(17, 23, 47, 0.8));
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 16px;
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.3),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-box::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.03) 10px,
+                rgba(255, 255, 255, 0.03) 20px
+            );
+            opacity: 0.3;
+        }
+
+        .result-box h3 {
+            font-size: 18px;
+            font-weight: 500;
+            color: #bdc3c7;
+            margin-bottom: 10px;
+        }
+
+        .result-box p {
+            font-size: 32px;
+            font-weight: bold;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(90deg, #3742fa, #00e5ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 5px 0;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 850px) {
+            .container {
+                width: 90%;
+                padding: 25px;
+            }
+            
+            form {
+                grid-template-columns: 1fr; /* Switch to single column on smaller screens */
+            }
+            
+            button {
+                grid-column: span 1; /* Reset button span on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Calorie Prediction Model</h2>
+        
+        <form action="http://127.0.0.1:8000/predict/" method="post">
+            <div class="input-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="1">Male</option>
+                    <option value="0">Female</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" placeholder="Enter your age" required>
+            </div>
+
+            <div class="input-group">
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" name="height" placeholder="Enter height in cm" required>
+            </div>
+
+            <div class="input-group">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight" name="weight" placeholder="Enter weight in kg" required>
+            </div>
+
+            <div class="input-group">
+                <label for="duration">Duration (min):</label>
+                <input type="number" id="duration" name="duration" placeholder="Workout duration" required>
+            </div>
+
+            <div class="input-group">
+                <label for="heart_rate">Heart Rate (bpm):</label>
+                <input type="number" id="heart_rate" name="heart_rate" placeholder="Average heart rate" required>
+            </div>
+
+            <div class="input-group">
+                <label for="body_temp">Body Temperature (°C):</label>
+                <input type="number" id="body_temp" name="body_temp" step="0.1" placeholder="Body temperature in °C" required>
+            </div>
+
+            <button type="submit">PREDICT CALORIES</button>
+        </form>
+
+        <div class="result-box">
+            <h3>Predicted Calories</h3>
+            <p id="prediction">{{ prediction }} kcal</p>
+        </div>
+    </div>
+
+</body>
+</html>

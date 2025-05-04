@@ -1,0 +1,83 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    text-align: center;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    text-align: left;
+    font-size: 14px;
+}
+
+input, select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 14px;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+button {
+    background: #ff9800;
+    border: none;
+    padding: 12px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #e68900;
+}
+
+/* Result Box */
+.result-box {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+.result-box h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.result-box p {
+    font-size: 22px;
+    font-weight: bold;
+    color: #ffeb3b;
+    margin: 5px 0 0;
+}
